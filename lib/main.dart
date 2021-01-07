@@ -19,47 +19,64 @@ class _QuizAppState extends State<QuizApp> {
     {
       'questionText': 'Entomology is the science that studies?',
       'answers': [
-        'Behavior of human beings',
-        'Insects',
-        'The origin and history of technical and scientific terms',
-        'The formation of rocks'
+        {'text': 'Behavior of human beings', 'score': 0},
+        {'text': 'Insects', 'score': 1},
+        {
+          'text': 'The origin and history of technical and scientific terms',
+          'score': 0
+        },
+        {'text': 'The formation of rocks', 'score': 0},
       ],
     },
     {
       'questionText': 'Hitler party which came into power in 1933 is known as?',
       'answers': [
-        'Labour Party',
-        'Nazi Party',
-        'Ku-Klux-Klan',
-        'Democratic Party'
+        {'text': 'Labour Party', 'score': 0},
+        {'text': 'Nazi Party', 'score': 1},
+        {'text': 'Ku-Klux-Klan', 'score': 0},
+        {'text': 'Democratic Party', 'score': 0},
       ],
     },
     {
       'questionText': 'FFC stands for?',
       'answers': [
-        'Foreign Finance Corporation',
-        'Film Finance Corporation',
-        'Federation of Football Council',
-        'None of the above'
+        {'text': 'Foreign Finance Corporation', 'score': 0},
+        {'text': 'Film Finance Corporation', 'score': 1},
+        {'text': 'Federation of Football Council', 'score': 0},
+        {'text': 'None of the above', 'score': 0},
       ],
     },
     {
       'questionText': 'Fastest shorthand writer was?',
       'answers': [
-        'Dr. G. D. Bist',
-        'J.R.D. Tata',
-        'J.M. Tagore',
-        'Khudada Khan'
+        {'text': 'Dr. G. D. Bist', 'score': 1},
+        {'text': 'J.R.D. Tata', 'score': 0},
+        {'text': 'J.M. Tagore', 'score': 0},
+        {'text': 'Khudada Khan', 'score': 0},
       ],
     },
     {
       'questionText': 'Epsom (England) is the place associated with?',
-      'answers': ['Horse racing', 'Polo', 'Shooting', 'Snooker'],
+      'answers': [
+        {'text': 'Horse racing', 'score': 1},
+        {'text': 'Polo', 'score': 0},
+        {'text': 'Shooting', 'score': 0},
+        {'text': 'Snooker', 'score': 0},
+      ],
     },
   ];
   var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void _answerQuestion() {
+  void _resetQuiz() {
+    setState(() {
+      _questionIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
+  void _answerQuestion(int score) {
+    _totalScore += score;
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
@@ -84,7 +101,7 @@ class _QuizAppState extends State<QuizApp> {
                 questionIndex: _questionIndex,
                 questions: _questions,
               )
-            : Result(),
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }
